@@ -1,0 +1,11 @@
+<!--  -->
+<view class="comp-1 ~page-class ^parent-class">
+  <view>
+    ~ 使用page下的class
+  </view>
+  <view>
+    ^ 使用父组件的class， 可串联
+  </view>
+
+  comp-1
+</view>

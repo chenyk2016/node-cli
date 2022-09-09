@@ -1,0 +1,28 @@
+{
+  "name": "node-cli-tools",
+  "version": "0.0.2",
+  "description": "cli, node-cli, cli-tools",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cli",
+    "node-cli",
+    "cli-tools"
+  ],
+  "author": "https://github.com/chenyk2016",
+  "license": "ISC",
+  "bin": {
+    "ccli": "./bin/index.js"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^8.1.0",
+    "shelljs": "^0.8.4",
+    "yargs": "^17.1.0"
+  }
+}
