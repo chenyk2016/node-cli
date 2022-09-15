@@ -159,8 +159,40 @@ async function copy(from, to, coverOld) {
 	}
 }
 
+/**
+ * 替换文件中的指定字符串
+ * @param {string} filepath 文件路径
+ * @param {regexp} matchReg 替换的正则
+ * @param {string} replaceStr 用于替换的字符串
+ */
+function replace(filepath, matchReg, replaceStr) {
+	fs.readFile(filepath, 'utf8', function (err,data) {
+		if (err) {
+			return console.log(err);
+		}
+		var result = data.replace(matchReg, replaceStr);
+
+		fs.writeFile(filepath, result, 'utf8', function (err) {
+			if (err) return console.log(err);
+		});
+	});
+}
+
+/**
+ * 替换文件中的指定字符串 - 同步
+ * @param {string} filepath 文件路径
+ * @param {regexp} matchReg 替换的正则
+ * @param {string} replaceStr 用于替换的字符串
+ */
+function replaceFileSync(filepath, matchReg, replaceStr) {
+	const data = fs.readFileSync(filepath, 'utf8');
+  var result = data.replace(matchReg, replaceStr);
+  fs.writeFileSync(filepath, result, 'utf8');
+}
+
 module.exports = {
   getAllFile,
   isExist,
   copy,
+	replace,
 }
