@@ -17,7 +17,6 @@ program.command('npm <originName>')
   const originMap = {
     'npm': 'registry https://registry.npmjs.org',
     'taobao': 'registry https://registry.npm.taobao.org',
-
   }
 
   const origin = originMap[originName]
