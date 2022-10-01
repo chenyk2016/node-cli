@@ -37,6 +37,10 @@ async function isExist(path){
 	});
 }
 
+function existsSync(path) {
+	return fs.existsSync(path);
+}
+
 /**
  * file or a folder
  *
@@ -190,9 +194,63 @@ function replaceFileSync(filepath, matchReg, replaceStr) {
   fs.writeFileSync(filepath, result, 'utf8');
 }
 
+
+/**
+ * 在目录下查找
+ * 如果是目录，匹配到了，不会在匹配的目录下继续查找
+ *
+ *
+ * @param {str} targetDir 需要查找的目录
+ * @param {*} regexp 匹配文件的正则
+ * @param {*} conf.deep 查找的目录层级，0代表当前目录
+ * @param {*} conf.deep 查找的目录层级，0代表当前目录
+ * @returns
+ */
+function find(targetDir, regexp, conf) {
+	const { deep = 0, ignorePrivate = true } = conf;
+
+  const fileList = getAllFile(targetDir);
+  let resArr = [];
+
+  fileList.forEach(file => {
+    // 忽略.开头的文件
+    if(ignorePrivate && /\..*/.test(file.name)) {
+      return;
+    }
+
+    if (regexp.test(file.name)) {
+      resArr.push(file.path);
+    } else if(file.type === 'directory' && deep >= 1) {
+      resArr = resArr.concat(find(file.path, regexp, {
+				deep: deep - 1,
+				ignorePrivate
+			}))
+    }
+  })
+
+  return resArr;
+}
+
+function getNameFormPath (path) {
+	if (!path) {
+		return ''
+	}
+	let names = path.split('/');
+	if (!Array.isArray(names)) {
+		names = path.split('\\');
+	}
+	if (!Array.isArray(names)) {
+		return '';
+	}
+	return names[names.length - 1];
+}
+
 module.exports = {
   getAllFile,
   isExist,
+	existsSync,
   copy,
 	replace,
+	find,
+	getNameFormPath,
 }
