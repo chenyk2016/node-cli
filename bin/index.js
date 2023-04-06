@@ -9,7 +9,7 @@ const shell = require('../utils/shelljs')
 require('./git/index.js')
 require('./temp/index.js')
 // require('./others/gbc-remote');
-require('./others2/gbc-publish');
+require('./others2/ljrun.js');
 
 program.command('npm <originName>')
 .description('修改npm仓库源地址')
